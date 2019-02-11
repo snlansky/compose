@@ -1,0 +1,31 @@
+version: '3'
+services:
+    mysql:
+        image: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=block
+            - MYSQL_USER=snlan
+            - MYSQL_PASSWORD=snlan
+        volumes:
+            - mysql-data:/var/lib/mysql
+        ports: 
+            - "3306:3306"
+    consul:
+        image: "consul"
+        command: ["agent", "-dev", "-ui", "-client", "0.0.0.0"]
+        ports: 
+            - "8500:8500"
+    redis:
+        image: redis
+        command: redis-server --requirepass snlan
+        ports:
+            - "6379:6379"
+    fluentd:
+        image: fluentd
+        command: redis-server --requirepass snlan
+        ports:
+      		- "24224:24224"
+      		- "24224:24224/udp"
+volumes:
+    mysql-data:
