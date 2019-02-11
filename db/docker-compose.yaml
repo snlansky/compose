@@ -22,8 +22,7 @@ services:
         ports:
             - "6379:6379"
     fluentd:
-        image: fluentd
-        command: redis-server --requirepass snlan
+        image: fluent/fluentd
         ports:
       		- "24224:24224"
       		- "24224:24224/udp"
