@@ -30,4 +30,4 @@ services:
             - ./log:/fluentd/log
 volumes:
     mysql-data:
-    
+   
