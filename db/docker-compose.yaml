@@ -7,10 +7,9 @@ services:
       - MYSQL_DATABASE=block
       - MYSQL_USER=snlan
       - MYSQL_PASSWORD=snlan
-    volumes:
-      - mysql-data:/var/lib/mysql
     ports:
       - "3306:3306"
+
   consul:
     image: "consul"
     command: ["agent", "-dev", "-ui", "-client", "0.0.0.0"]
@@ -18,16 +17,21 @@ services:
       - "8500:8500"
   redis:
     image: redis
-    command: redis-server --requirepass snlan
+    command: redis-server --requirepass admin
     ports:
       - "6379:6379"
+
   fluentd:
     image: fluent/fluentd
     ports:
       - "24224:24224"
       - "24224:24224/udp"
-    volumes:
-      - ./log:/fluentd/log
-volumes:
-  mysql-data:
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
    
