@@ -1,0 +1,7 @@
+        # Virtual Host Configs
+        vhost_traffic_status_zone;     
+        vhost_traffic_status_filter_by_host on;
+        vhost_traffic_status_filter_by_set_key $uri uri::$server_name;
+
+
+        

@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+  nginx:
+    image: skyscrapers/nginx
+    container_name: nginx-vts
+    ports:
+      - 80:80
+    volumes:
+      - /data/compose/nginx-vts/nginx:/etc/nginx
+      - /data/myapp:/data/myapp 
+    restart: always
+
+  nginx-vts-exporter:
+    image: sophos/nginx-vts-exporter
+    container_name: nginx-vts-exporter
+    ports:
+      - 9913:9913
+    restart: always
+    environment:
+      - NGINX_STATUS=http://192.168.31.22/status/format/json
